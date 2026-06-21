@@ -1,0 +1,109 @@
+# Redrob Hackathon — Submission Metadata
+#
+# Stage 3 review uses this file to verify portal metadata against the repo.
+
+# ============================================================================
+# Team identity
+# ============================================================================
+team_name: "YOUR_TEAM_NAME"  # TODO: fill in
+
+primary_contact:
+  name: "YOUR_FULL_NAME"            # TODO: fill in
+  email: "your_email@example.com"   # TODO: fill in
+  phone: "+91-XXXXXXXXXX"           # TODO: fill in
+
+team_members:
+  - name: "YOUR_FULL_NAME"          # TODO: fill in (add more entries if a team)
+    email: "your_email@example.com"
+    role: "ML Engineer"
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "https://github.com/Richa-2319/AI-powered-resume-ranker"   # TODO: fill in
+
+sandbox_link: "https://colab.research.google.com/..."        # TODO: fill in
+# A Colab notebook running RANK_notebook.ipynb on a small sample, or HF Space.
+
+reproduce_command: >
+  Step 1 (offline, no time limit):
+  jupyter nbconvert --to notebook --execute notebooks/PRECOMPUTE_notebook.ipynb
+  -- loads candidates.jsonl, extracts structured features, computes embeddings,
+  and writes 4 artifact files to artifacts/.
+
+  Step 2 (timed, must finish in <=5 min, CPU-only, no network):
+  jupyter nbconvert --to notebook --execute notebooks/RANK_notebook.ipynb
+  -- loads the artifacts/ files only (never touches candidates.jsonl again),
+  computes cosine similarity + composite scores, and writes submission.csv.
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "YOUR_MACHINE_DESCRIPTION"   # TODO: e.g. "Local Linux box", "MacBook Pro M2"
+  cpu_cores: 8                           # TODO: fill in actual core count
+  ram_gb: 16                             # TODO: fill in actual RAM
+  python_version: "3.10.x"               # TODO: run `python --version` and fill in
+  os: "Ubuntu 22.04 LTS"                 # TODO: fill in actual OS
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: true
+  pre_computation_time_minutes: 60       # TODO: fill in actual precompute time (embedding step)
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  Used Claude (Anthropic) for architectural discussion, EDA-driven feature
+  engineering decisions, debugging the compute-constraint split between
+  precompute and ranking, and code generation/review for the scoring logic
+  in the notebooks. No candidate data was sent to any external LLM API as
+  part of the ranking pipeline itself — all scoring at inference/ranking
+  time runs locally with no network calls (sentence-transformers model run
+  locally, no hosted embedding or LLM API used).
+
+# ============================================================================
+# Approach summary
+# ============================================================================
+methodology_summary: |
+  Two-stage pipeline split to satisfy the 5-minute CPU-only ranking budget.
+
+  Stage 1 (PRECOMPUTE, offline, no time limit): parses all 100K candidate
+  profiles; computes six structured sub-scores per candidate (title
+  relevance, career-history quality/stability, core AI-skill depth weighted
+  by proficiency+duration+endorsements, experience-years fit, location fit,
+  education tier); computes a honeypot-penalty multiplier (flags
+  YOE/career-history mismatches, implausible expert-skill counts,
+  contradictory behavioural signals) and an availability multiplier
+  (recency, open-to-work, response rate, interview completion, notice
+  period, GitHub activity — all EDA-tuned to the dataset's actual value
+  ranges, e.g. treating sentinel -1 values as "no data" rather than zero).
+  Candidate profile text is embedded with a local sentence-transformers
+  model (all-MiniLM-L6-v2) against an embedding of the JD. All of this is
+  saved to a small set of artifact files (parquet + npy).
+
+  Stage 2 (RANK, <=5 min, CPU-only, no network): loads only the precomputed
+  artifacts (never re-reads the raw candidate file), computes cosine
+  similarity via a single vectorised numpy matrix multiply, combines it
+  with the structured score (75% structured / 25% semantic), applies the
+  honeypot and availability multipliers, sorts, and writes the top-100
+  ranked CSV with grounded, template-generated reasoning strings built only
+  from precomputed fields (no LLM calls at ranking time).
+
+  Feature weights and thresholds were derived empirically from a 1,000-row
+  EDA pass (proficiency distribution, signal sentinel values, notice-period
+  clustering, title/company distribution) rather than assumed from the JD
+  alone.
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
