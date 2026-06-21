@@ -5,24 +5,24 @@
 # ============================================================================
 # Team identity
 # ============================================================================
-team_name: "YOUR_TEAM_NAME"  # TODO: fill in
+team_name: "AI-WARRIOR"  # TODO: fill in
 
 primary_contact:
-  name: "YOUR_FULL_NAME"            # TODO: fill in
-  email: "your_email@example.com"   # TODO: fill in
-  phone: "+91-XXXXXXXXXX"           # TODO: fill in
+  name: "Richa Kumari"            # TODO: fill in
+  email: "richakusingh2319@gmail.com"   # TODO: fill in
+  phone: "+91-9693339778"           # TODO: fill in
 
-team_members:
-  - name: "YOUR_FULL_NAME"          # TODO: fill in (add more entries if a team)
-    email: "your_email@example.com"
-    role: "ML Engineer"
+#team_members:
+ # - name: "YOUR_FULL_NAME"          # TODO: fill in (add more entries if a team)
+  #  email: "your_email@example.com"
+  #  role: "ML Engineer"
 
 # ============================================================================
 # Code and reproducibility
 # ============================================================================
 github_repo: "https://github.com/Richa-2319/AI-powered-resume-ranker"   # TODO: fill in
 
-sandbox_link: "https://colab.research.google.com/..."        # TODO: fill in
+sandbox_link: "https://colab.research.google.com/drive/199ZFrUge5Ws06qiHCJylOWIo8iqTZUec#scrollTo=_YRWDUetw_iM"        # TODO: fill in
 # A Colab notebook running RANK_notebook.ipynb on a small sample, or HF Space.
 
 reproduce_command: >
@@ -40,21 +40,21 @@ reproduce_command: >
 # Compute environment
 # ============================================================================
 compute:
-  platform: "YOUR_MACHINE_DESCRIPTION"   # TODO: e.g. "Local Linux box", "MacBook Pro M2"
+  platform: "Linux Ubuntu"   # TODO: e.g. "Local Linux box", "MacBook Pro M2"
   cpu_cores: 8                           # TODO: fill in actual core count
   ram_gb: 16                             # TODO: fill in actual RAM
-  python_version: "3.10.x"               # TODO: run `python --version` and fill in
+  python_version: "3.12.3"               # TODO: run `python --version` and fill in
   os: "Ubuntu 22.04 LTS"                 # TODO: fill in actual OS
   uses_gpu_for_inference: false
   has_network_during_ranking: false
   pre_computation_required: true
-  pre_computation_time_minutes: 60       # TODO: fill in actual precompute time (embedding step)
+  pre_computation_time_minutes: 60-90 min       # TODO: fill in actual precompute time (embedding step)
 
 # ============================================================================
 # AI tools declaration
 # ============================================================================
 ai_tools_used:
-  - "Claude"
+  - "Claude" , "all-miniLM-L6-V2"
 
 ai_usage_summary: |
   Used Claude (Anthropic) for architectural discussion, EDA-driven feature
