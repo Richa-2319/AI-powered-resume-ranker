@@ -22,7 +22,7 @@ primary_contact:
 # ============================================================================
 github_repo: "https://github.com/Richa-2319/AI-powered-resume-ranker"   # TODO: fill in
 
-sandbox_link: "https://colab.research.google.com/drive/199ZFrUge5Ws06qiHCJylOWIo8iqTZUec#scrollTo=_YRWDUetw_iM"        # TODO: fill in
+sandbox_link: "https://colab.research.google.com/drive/1UaQE4UcfMFaAQf75AlE7caeLLCjnqce4#scrollTo=3f455b51"        # TODO: fill in
 # A Colab notebook running RANK_notebook.ipynb on a small sample, or HF Space.
 
 reproduce_command: >
