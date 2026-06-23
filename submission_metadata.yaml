@@ -12,10 +12,14 @@ primary_contact:
   email: "richakusingh2319@gmail.com"   # TODO: fill in
   phone: "+91-9693339778"           # TODO: fill in
 
-#team_members:
- # - name: "YOUR_FULL_NAME"          # TODO: fill in (add more entries if a team)
-  #  email: "your_email@example.com"
-  #  role: "ML Engineer"
+team_members:
+  - name: "Shreya Mishra"          # TODO: fill in (add more entries if a team)
+    email: "shreyamishra200520@gmail.com"
+    role: "ML Student"
+
+  - name: "Richa Kumari"
+    email: "richakusingh2319@gmail.com
+    role: "Fresher"
 
 # ============================================================================
 # Code and reproducibility
